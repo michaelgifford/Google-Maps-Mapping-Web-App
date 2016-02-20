@@ -1,0 +1,104 @@
+<!doctype html>
+<!-- mgGMaps starting Angular module -->
+<html class="no-js" ng-app="mgGMaps">
+<head>
+    <meta charset="utf-8">
+    <title>MG GMaps App</title>
+    <meta name="description" content="Angular/Express/MongoDB/Node mapping app with Google Maps API">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- CSS Styling -->
+    <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.css"/>
+    <link rel="stylesheet" href="style.css"/>
+    <!-- Holder JS, GMaps API, Modernizr -->
+    <script src="./bower_components/holderjs/holder.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC0ANZ5m74LllEEhYp08Fl3O9q0bjLhEoA"></script>
+    <script src="./bower_components/modernizr/bin/modernizr"></script>
+    <!-- JS/JQuery -->
+    <script src="./bower_components/jquery/jquery.js"></script>
+    <script src="./bower_components/angular/angular.js"></script>
+    <script src="./bower_components/angular-route/angular-route.js"></script>
+    <script src="./bower_components/angularjs-geolocation/dist/angularjs-geolocation.min.js"></script>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <ul class="nav nav-pills pull-right">
+            <li active><a href="">Join a Squad</a></li>
+            <li disabled><a href="">Find Squad Members</a></li>
+        </ul>
+        <h3 class="text-muted">MG GMaps App</h3>
+    </div>
+
+    <div class="row content">
+        <!-- Map -->
+        <div class="col-md-7">
+            <div id="map"><img src="holder.js/645x645"></div>
+        </div>
+        <!-- Side panel -->
+        <div class="col-md-5">
+            <div class="panel panel-default">
+                <!-- Main Panel -->
+                <div class="panel-heading">
+                    <h2 class="panel-title text-center">User Information <span class="glyphicon glyphicon-user"></span></h2>
+                </div>
+                <div class="panel-body">
+                    <!-- Genarates form (novalidate disables HTML validation, Angular will control) -->
+                    <form name ="addForm" novalidate>
+                        <!-- User inputs. ng-model binds vals to Angular $scope -->
+                        <div class="form-group">
+                            <label for="username">User <span class="badge">All fields required</span></label>
+                            <input type="text" class="form-control" id="username" placeholder="SlimeballWalrus" ng-model="formData.username" required>
+                        </div>
+                        <label class="radio control-label">Gender</label>
+                        <div class="radio">
+                            <label>
+                                <input type="radio" name="optionsRadios" id="radioother" value="Unspecified" ng-model="formData.gender">
+                                Unspecified
+                            </label>
+                        </div>
+                        <div class="radio">
+                            <label>
+                                <input type="radio" name="optionsRadios" id="radiomale" value="Male" ng-model="formData.gender">
+                                Male
+                            </label>
+                        </div>
+                        <div class="radio" required>
+                            <label>
+                                <input type="radio" name="optionsRadios" id="radiofemale" value="Female" ng-model="formData.gender">
+                                Female
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label for="age">Age</label>
+                            <input type="number" class="form-control" id="age" placeholder="27" ng-model="formData.age" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="language">Favourite Animal</label>
+                            <input type="text" class="form-control" id="animal" placeholder="Zebra" ng-model="formData.favanimal" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="longitude">Longitude</label>
+                            <input type="text" class="form-control" id="longitude" value="-97.243" ng-model="formData.longitude" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="latitude">Latitude</label>
+                            <input type="text" class="form-control" id="latitude" value="49.885" ng-model="formData.latitude" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="verified">Location HTML5 Verified? <span><button class="btn btn-success btn-xs"><span class="glyphicon glyphicon-refresh"></span></button></span></label>
+                            <input type="text" class="form-control" id="verified" placeholder= "Yes/No" ng-model="formData.htmlverified" readonly>
+                        </div>
+                        <!-- Submit. tied to createUser() from addCtrl. ng-disabled val prevents early submission.  -->
+                        <button type="submit" class="btn btn-warning btn-block" ng-disabled="addForm.$invalid">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr/>
+
+    <div class="footer">
+    </div>
+</div>
+</body>
+</html>
