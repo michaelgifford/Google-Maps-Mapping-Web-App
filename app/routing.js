@@ -1,11 +1,11 @@
 var mongoose = require('mongoose');
-var UserSchema = require('./model.js');
+var UsrSchema = require('./model.js');
 
 module.exports = function(app) {     
     // GET routes
     app.get('/users', function(req, res){ // Get all user records from database
 
-        var query = UserSchema.find({}); // Use mongoose user schema to perform search
+        var query = UsrSchema.find({}); // Use mongoose user schema to perform search
         query.exec(function(err, users){
             if(err)
                 res.send(err); // Respond to query with error if error occurs
@@ -16,7 +16,7 @@ module.exports = function(app) {
     // POST Routes
     app.post('/users', function(req, res){ // Post new user into database
 
-        var newUser = new UserSchema(req.body); // Use mongoose user schema to create new user
+        var newUser = new UsrSchema(req.body); // Use mongoose user schema to create new user
 
         newUser.save(function(err){ // Save new user to database
             if(err)
