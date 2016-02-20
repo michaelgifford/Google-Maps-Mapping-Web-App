@@ -1,13 +1,11 @@
-// Dependencies
-var express         = require('express');
-var mongoose        = require('mongoose');
-var port            = process.env.PORT || 3000;
-var morgan          = require('morgan');
-var bodyParser      = require('body-parser');
-var methodOverride  = require('method-override');
-var app             = express();
+var express = require('express');
+var mongoose = require('mongoose');
+var port = process.env.PORT || 3000;
+var morgan = require('morgan');
+var bodyParser = require('body-parser');
+var methodOverride = require('method-override');
+var app = express();
 
-// Express config
 mongoose.connect("mongodb://localhost/mgGMaps");
 
 // Parsing & logging
@@ -21,7 +19,7 @@ app.use(bodyParser.json({ type: 'application/vnd.api+json'}));  // parse applica
 app.use(methodOverride());
 
 // Routes
-//('./app/routes.js')(app);
+//('./app/routing.js')(app);
 
 app.listen(port);
 console.log('App listening on port ' + port);

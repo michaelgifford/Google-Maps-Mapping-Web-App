@@ -1,5 +1,5 @@
-var mongoose    = require('mongoose');
-var Schema      = mongoose.Schema;
+var mongoose = require('mongoose');
+var Schema = mongoose.Schema;
 
 var UsrSchema = new Schema({ // Create user schema
     username: {type: String, required: true},
@@ -22,5 +22,4 @@ UsrSchema.pre('save', function(next){ // Set time_created parameter to present t
 });
 
 UsrSchema.index({location: '2dsphere'}); // Index schema using 2dsphere. Allows geospatial queries
-
 module.exports = mongoose.model('mgGMapuser', UsrSchema);
