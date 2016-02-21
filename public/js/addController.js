@@ -5,15 +5,22 @@ addController.controller('addController', function($scope, $http, $rootScope, ge
     $scope.formData = {};
     var coordinates = {};
 
-    // Set default coordinates near center of North America
-    $scope.formData.latitude = 40.236;
+    $scope.formData.latitude = 40.236; // Set default coordinates near center of North America
     $scope.formData.longitude = -99.996;
+
+    geolocation.getLocation().then(function(data){ // Obtain user's real coords through HTML5 for verification
+        htmlCoordinates = {lat:data.coords.latitude, long:data.coords.longitude}; // Save HTMl5 coords
+        $scope.formData.longitude = parseFloat(htmlCoordinates.long).toFixed(4); // Show coords in location input boxes
+        $scope.formData.latitude = parseFloat(htmlCoordinates.lat).toFixed(4);
+        $scope.formData.verified = "Coordinates Verified"; // Show verification message
+        gmapsservice.refreshMap($scope.formData.latitude, $scope.formData.longitude); // Reload map with new data
+    });
 
     $rootScope.$on("mapclick", function(){ // Get coords of mouse click event on click
         $scope.$apply(function(){ // Gather coords with gmapsservice functions
             $scope.formData.latitude = parseFloat(gmapsservice.latitudeClick).toFixed(4);
             $scope.formData.longitude = parseFloat(gmapsservice.longitudeClick).toFixed(4);
-            $scope.formData.verified = "Not Verified";
+            $scope.formData.verified = "Coordinates Not Verified";
         });
     });
 
