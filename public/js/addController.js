@@ -1,13 +1,13 @@
-var addController = angular.module('addController', ['geolocation']);
-addController.controller('addController', function($scope, $http, geolocation){ // Dependent on geolocation module
+var addController = angular.module('addController', ['geolocation', 'gmapsservice']);
+addController.controller('addController', function($scope, $http, geolocation, gmapsservice){ 
     var latitude = 0;
     var longitude = 0;
     $scope.formData = {};
     var coordinates = {};
 
     // Set default coordinates (center of North America)
-    $scope.formData.latitude = 49.885;
-    $scope.formData.longitude = -97.243;
+    $scope.formData.latitude = 40.236;
+    $scope.formData.longitude = -99.996;
 
     $scope.createNewUser = function() { // Creates new user with submitted info
         var submittedData = { // Holds submitted data
@@ -19,11 +19,12 @@ addController.controller('addController', function($scope, $http, geolocation){ 
             verified: $scope.formData.verified
         };
         $http.post('/users', submittedData) // POST submitted data to database
-            .success(function (data) { // Clear forms on submission
-                $scope.formData.username = "";
+            .success(function (data) {
+                $scope.formData.username = ""; // Clear forms on submission
                 $scope.formData.gender = "";
                 $scope.formData.age = "";
                 $scope.formData.favanimal = "";
+                gmapsservice.refreshMap($scope.formData.latitude, $scope.formData.longitude); // Reload the map
             })
             .error(function (data) { // Log error if error occurs
                 console.log('Error on Data Submission: ' + data);
