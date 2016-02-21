@@ -4,6 +4,8 @@ angular.module('gmapsservice', []) // gmapsservice factory. Interacts with Googl
         var locationsArray = []; // Locations from calls to API
         var selectedLatitude = 40.236; // User's selected location
         var selectedLongitude = -99.996;
+        gMapService.clickLat = 0; // Handles clicks and location select
+        gMapService.clickLong = 0;
 
         gMapService.refreshMap = function(latitude, longitude){ // Refresh map data
             locationsArray = []; // Clear locations
@@ -76,6 +78,24 @@ var initializeMap = function(latitude, longitude) { // Initializes map
         icon: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png'
     });
     lastMarker = userMarker;
+
+    map.panTo(new google.maps.LatLng(latitude, longitude)); // Function that pans map to specified location
+
+    google.maps.event.addListener(map, 'click', function(e){
+        var userMarker = new google.maps.Marker({
+            position: e.latLng,
+            animation: google.maps.Animation.BOUNCE,
+            map: map,
+            icon: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png'
+        });
+
+    if(lastMarker){ // Delete old red marker when new one specified
+        lastMarker.setMap(null);
+        }
+
+    lastMarker = userMarker; // Create new red marker
+    map.panTo(userMarker.position); // Pan to new red marker
+    });
 };
 
 google.maps.event.addDomListener(window, 'load', // Reload page with default latitude and longitude on window load
