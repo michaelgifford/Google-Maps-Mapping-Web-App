@@ -7,19 +7,22 @@
     <meta name="description" content="Angular/Express/MongoDB/Node mapping app with Google Maps API">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- CSS Styling -->
-    <link rel="stylesheet" href="./bower_components/bootstrap/dist/css/bootstrap.css"/>
+    <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.css"/>
     <link rel="stylesheet" href="style.css"/>
     <!-- Holder JS, GMaps API, Modernizr -->
-    <script src="./bower_components/holderjs/holder.js"></script>
+    <script src="../bower_components/holderjs/holder.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC0ANZ5m74LllEEhYp08Fl3O9q0bjLhEoA"></script>
-    <script src="./bower_components/modernizr/bin/modernizr"></script>
+    <script src="../bower_components/modernizr/bin/modernizr"></script>
     <!-- JS/JQuery -->
-    <script src="./bower_components/jquery/src/jquery.js"></script>
-    <script src="./bower_components/angular/angular.js"></script>
-    <script src="./bower_components/angular-route/angular-route.js"></script>
-    <script src="./bower_components/angularjs-geolocation/dist/angularjs-geolocation.min.js"></script>
+    <script src="../bower_components/jquery/src/jquery.js"></script>
+    <script src="../bower_components/angular/angular.js"></script>
+    <script src="../bower_components/angular-route/angular-route.js"></script>
+    <script src="../bower_components/angularjs-geolocation/dist/angularjs-geolocation.min.js"></script>
+    <!-- Angular -->
+    <script src="./js/mainapp.js"></script>
+    <script src="./js/addController.js"></script>
 </head>
-<body>
+<body ng-controller="addController">
 <div class="container">
     <div class="header">
         <ul class="nav nav-pills pull-right">
@@ -73,23 +76,23 @@
                             <input type="number" class="form-control" id="age" placeholder="27" ng-model="formData.age" required>
                         </div>
                         <div class="form-group">
-                            <label for="language">Favourite Animal</label>
+                            <label for="favanimal">Favourite Animal</label>
                             <input type="text" class="form-control" id="favanimal" placeholder="Zebra" ng-model="formData.favanimal" required>
                         </div>
                         <div class="form-group">
                             <label for="longitude">Longitude</label>
-                            <input type="text" class="form-control" id="longitude" value="-97.243" ng-model="formData.longitude" readonly>
+                            <input type="text" class="form-control" id="longitude" value="-97.243" placeholder="-97.243" ng-model="formData.longitude" readonly>
                         </div>
                         <div class="form-group">
                             <label for="latitude">Latitude</label>
-                            <input type="text" class="form-control" id="latitude" value="49.885" ng-model="formData.latitude" readonly>
+                            <input type="text" class="form-control" id="latitude" value="49.885" placeholder="49.885" ng-model="formData.latitude" readonly>
                         </div>
                         <div class="form-group">
                             <label for="verified">Location HTML5 Verified? <span><button class="btn btn-success btn-xs"><span class="glyphicon glyphicon-refresh"></span></button></span></label>
                             <input type="text" class="form-control" id="verified" placeholder= "Yes/No" ng-model="formData.verified" readonly>
                         </div>
-                        <!-- Submit. tied to createUser() from addCtrl. ng-disabled val prevents early submission.  -->
-                        <button type="submit" class="btn btn-warning btn-block" ng-disabled="addForm.$invalid">Submit</button>
+                        <!-- Submit. tied to createNewUser() from addController. ng-disabled val prevents early submission.  -->
+                        <button type="submit" class="btn btn-warning btn-block" ng-click="createNewUser()" ng-disabled="addForm.$invalid">Submit</button>
                     </form>
                 </div>
             </div>
