@@ -1,11 +1,11 @@
 angular.module('gmapsservice', []) // gmapsservice factory. Interacts with Google Maps
-.factory('gmapsservice', function($http){
+.factory('gmapsservice', function($rootScope, $http){
         var gMapService = {}; // Service returned by factory
         var locationsArray = []; // Locations from calls to API
         var selectedLatitude = 40.236; // User's selected location
         var selectedLongitude = -99.996;
-        gMapService.clickLat = 0; // Handles clicks and location select
-        gMapService.clickLong = 0;
+        gMapService.latitudeClick = 0; // Handles clicks and location select
+        gMapService.longitudeClick = 0;
 
         gMapService.refreshMap = function(latitude, longitude){ // Refresh map data
             locationsArray = []; // Clear locations
@@ -94,7 +94,11 @@ var initializeMap = function(latitude, longitude) { // Initializes map
         }
 
     lastMarker = userMarker; // Create new red marker
-    map.panTo(userMarker.position); // Pan to new red marker
+    map.panTo(userMarker.position); // Pan to new red 
+
+    gMapService.latitudeClick = userMarker.getPosition().lat(); // Tells long & lat panels to change values
+    gMapService.longitudeClick = userMarker.getPosition().lng();
+    $rootScope.$broadcast("mapclick"); // Broadcast map click
     });
 };
 
